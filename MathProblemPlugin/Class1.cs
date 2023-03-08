@@ -15,7 +15,7 @@ namespace RandomMathProblemPlugin
         private int _currentProblemAnswer = 0;
         private string _currentProblemDescription = string.Empty;
         private bool _isProblemSolved = true;
-        private int _countMoney = 10; // значение по умолчанию
+        private int _countMoney = 10;
         public int CountMoney
         {
             get { return _countMoney; }
@@ -40,7 +40,7 @@ namespace RandomMathProblemPlugin
 
         public override void Initialize()
         {
-            Commands.ChatCommands.Add(new Command(SetCountMoney, "setmoney") {HelpText = "/setmoney <value> устанавливает вознаграждение за решение задачи" });
+            Commands.ChatCommands.Add(new Command(SetCountMoney, "setmoney") {HelpText = "/setmoney <value> устанавливает вознаграждение за решение примера" });
             ServerApi.Hooks.ServerChat.Register(this, OnChatMessage);
             _timer = new Timer(60 * 1000); // 60 seconds
             _timer.Elapsed += GenerateNewProblem;
@@ -115,9 +115,7 @@ namespace RandomMathProblemPlugin
 
             _currentProblemAnswer = answer;
             _isProblemSolved = false;
-
-            _currentProblemDescription = $"Кто первые решит задачу получит {CountMoney} золотых монет: {firstNumber} {operation} {secondNumber} {answer}";
-
+            _currentProblemDescription = $"Кто первый решит задачу получит {CountMoney} золотых монет: {firstNumber} {operation} {secondNumber}";
             TShock.Utils.Broadcast(_currentProblemDescription, Color.Cyan);
         }
 
